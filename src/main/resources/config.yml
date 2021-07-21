@@ -1,0 +1,18 @@
+#SQLLocate(未テスト、使うときは自己責任)
+#Windows: C:/work/mydatabase.db
+#Linux / MacOS: /home/leo/work/mydatabase.db
+sqllocate: roledata.db
+#Discord Bot Token
+token:
+#BOTコマンドPrefix
+prefix: '!'
+#BOTメッセージ
+activity: ハロー
+#BOTコマンドをオフにする
+disablebotcommand: false
+#サーバーID(なくてもいいですが非効率になる可能性があります)
+serverid:
+#許可されているロールID
+role:
+  - null1
+  - null2

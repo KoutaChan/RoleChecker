@@ -1,0 +1,8 @@
+name: RoleChecker
+version: ${project.version}
+main: me.koutachan.rolechecker.RoleChecker
+commands:
+  joinmode:
+    permission: rolechecker.joinmode
+  removedatabase:
+    permission: rolechecker.removedatabase
