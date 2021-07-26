@@ -1,6 +1,7 @@
 package me.koutachan.rolechecker.jda;
 
 import me.koutachan.rolechecker.RoleChecker;
+import me.koutachan.rolechecker.api.event.EventListener;
 import me.koutachan.rolechecker.util.SQLUtil;
 import me.koutachan.rolechecker.util.UUIDUtil;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -27,7 +28,10 @@ public class JoinCommand extends ListenerAdapter {
                             .setDescription("ユーザー名を入力してください")
                             .addField("使い方:", RoleChecker.prefix + "join ${マインクラフトID}", false)
                             .setTimestamp(event.getMessage().getTimeCreated());
-                    event.getMessage().reply(embedBuilder.build()).queue();
+                    EventListener.Event eventListener = new EventListener.Event(null, event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.JOIN);
+
+                    EventListener.observers.forEach(observers -> observers.Event(eventListener));
+                    event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                 } else {
                     UUID uuid;
                     try {
@@ -39,7 +43,10 @@ public class JoinCommand extends ListenerAdapter {
                                 .setDescription("問題があると思う場合は管理者に報告してください")
                                 .addField("エラー概要:", "無効なユーザー名か他の重大なエラーが発生したようです", false)
                                 .setTimestamp(event.getMessage().getTimeCreated());
-                        event.getMessage().reply(embedBuilder.build()).queue();
+                        EventListener.Event eventListener = new EventListener.Event(null, event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.JOIN);
+
+                        EventListener.observers.forEach(observers -> observers.Event(eventListener));
+                        event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                         return;
                     }
                     String[] result = new SQLUtil().request(uuid.toString(), null);
@@ -52,7 +59,10 @@ public class JoinCommand extends ListenerAdapter {
                                 .addField("UUID:", uuid.toString(), false)
                                 .addField("登録者ID:", result[1], false)
                                 .setTimestamp(event.getMessage().getTimeCreated());
-                        event.getMessage().reply(embedBuilder.build()).queue();
+                        EventListener.Event eventListener = new EventListener.Event(uuid.toString(), event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.JOIN);
+
+                        EventListener.observers.forEach(observers -> observers.Event(eventListener));
+                        event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                     } else {
                         new SQLUtil().insert(uuid.toString(), event.getAuthor().getId(), false);
                         EmbedBuilder embedBuilder = new EmbedBuilder()
@@ -62,7 +72,10 @@ public class JoinCommand extends ListenerAdapter {
                                 .addField("Discord ID:", event.getAuthor().getId(), false)
                                 .setThumbnail("https://crafatar.com/avatars/" + uuid)
                                 .setTimestamp(event.getMessage().getTimeCreated());
-                        event.getMessage().reply(embedBuilder.build()).queue();
+                        EventListener.Event eventListener = new EventListener.Event(uuid.toString(), event.getAuthor().getId(),embedBuilder,true, EventListener.reasonEnum.JOIN);
+
+                        EventListener.observers.forEach(observers -> observers.Event(eventListener));
+                        event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                     }
                 }
             }

@@ -20,9 +20,7 @@ public class Check {
                 if (RoleChecker.plugin.getConfig().getString("serverid") != null) {
                     if(RoleChecker.jda.getGuildById(RoleChecker.plugin.getConfig().getString("serverid")).retrieveMemberById(result[1]).complete().getRoles().stream().anyMatch(i -> RoleChecker.list.contains(i.getId())))return true;
                 } else {
-                    for (Guild guild : RoleChecker.jda.getGuilds()) {
-                        if(guild.retrieveMemberById(result[1]).complete().getRoles().stream().anyMatch(i -> RoleChecker.list.contains(i.getId())))return true;
-                    }
+                    for (Guild guild : RoleChecker.jda.getGuilds()) if(guild.retrieveMemberById(result[1]).complete().getRoles().stream().anyMatch(i -> RoleChecker.list.contains(i.getId())))return true;
                 }
             }
         }catch (Exception ignored){

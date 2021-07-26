@@ -12,13 +12,13 @@ public class Event implements Listener {
 
     @EventHandler
     public void AsyncPlayerPreLoginEvent(AsyncPlayerPreLoginEvent e) {
-        if(JoinModeCommand.mode)return;
+        if (JoinModeCommand.mode) return;
         String[] SQL = new SQLUtil().request(e.getUniqueId().toString(), null);
         if (SQL == null) {
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_WHITELIST, "あなたには参加権限がありません" + ChatColor.RED + "[エラー | 登録されていません]");
             return;
         }
-        if(!new Check().Checker(e.getUniqueId().toString(),null)){
+        if (!new Check().Checker(e.getUniqueId().toString(), null)) {
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_WHITELIST, "あなたには参加権限がありません" + ChatColor.RED + "[エラー | 登録ロールがついていません]");
         }
     }

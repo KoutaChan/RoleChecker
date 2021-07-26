@@ -1,6 +1,7 @@
 package me.koutachan.rolechecker.jda;
 
 import me.koutachan.rolechecker.RoleChecker;
+import me.koutachan.rolechecker.api.event.EventListener;
 import me.koutachan.rolechecker.util.SQLUtil;
 import me.koutachan.rolechecker.util.UUIDUtil;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -27,7 +28,10 @@ public class ForceJoinCommand extends ListenerAdapter {
                                 .addField("使い方:", RoleChecker.prefix + "forcejoin ${マインクラフトID} ${Discord-ID}", true)
                                 .setColor(Color.RED)
                                 .setTimestamp(event.getMessage().getTimeCreated());
-                        event.getMessage().reply(embedBuilder.build()).queue();
+                        EventListener.Event eventListener = new EventListener.Event(null, event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.FORCEJOIN);
+
+                        EventListener.observers.forEach(observers -> observers.Event(eventListener));
+                        event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                     } else {
                         UUID uuid;
                         try {
@@ -37,8 +41,12 @@ public class ForceJoinCommand extends ListenerAdapter {
                                     .setColor(Color.RED)
                                     .setTitle("エラーが発生したようです")
                                     .setDescription("問題があると思う場合は管理者に報告してください")
+                                    .addField("エラー概要:", "無効なユーザー名か他の重大なエラーが発生したようです", false)
                                     .setTimestamp(event.getMessage().getTimeCreated());
-                            event.getMessage().reply(embedBuilder.build()).queue();
+                            EventListener.Event eventListener = new EventListener.Event(null, event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.FORCEJOIN);
+
+                            EventListener.observers.forEach(observers -> observers.Event(eventListener));
+                            event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                             return;
                         }
                         String[] result = new SQLUtil().request(uuid.toString(), null);
@@ -50,7 +58,10 @@ public class ForceJoinCommand extends ListenerAdapter {
                                     .addField("マインクラフトUUID:", args[1], false)
                                     .addField("DiscordID:", args[2], false)
                                     .setTimestamp(event.getMessage().getTimeCreated());
-                            event.getMessage().reply(embedBuilder.build()).queue();
+                            EventListener.Event eventListener = new EventListener.Event(uuid.toString(), event.getAuthor().getId(),embedBuilder,true, EventListener.reasonEnum.FORCEJOIN);
+
+                            EventListener.observers.forEach(observers -> observers.Event(eventListener));
+                            event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                         } else {
                             EmbedBuilder embedBuilder = new EmbedBuilder()
                                     .setColor(Color.RED)
@@ -59,7 +70,10 @@ public class ForceJoinCommand extends ListenerAdapter {
                                     .addField("マインクラフトUUID:", result[0], false)
                                     .addField("DiscordID:", result[1], false)
                                     .setTimestamp(event.getMessage().getTimeCreated());
-                            event.getMessage().reply(embedBuilder.build()).queue();
+                            EventListener.Event eventListener = new EventListener.Event(uuid.toString(), event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.FORCEJOIN);
+
+                            EventListener.observers.forEach(observers -> observers.Event(eventListener));
+                            event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                         }
                     }
                 }
@@ -69,7 +83,10 @@ public class ForceJoinCommand extends ListenerAdapter {
                         .setTitle("権限がないようです！")
                         .addField("エラー概要:", "あなたは`ADMINISTRATOR`権限がありません", false)
                         .setTimestamp(event.getMessage().getTimeCreated());
-                event.getMessage().reply(embedBuilder.build()).queue();
+                EventListener.Event eventListener = new EventListener.Event(null, event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.FORCEJOIN);
+
+                EventListener.observers.forEach(observers -> observers.Event(eventListener));
+                event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
             }
         }
     }

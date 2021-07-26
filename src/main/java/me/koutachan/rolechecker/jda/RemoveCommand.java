@@ -1,6 +1,7 @@
 package me.koutachan.rolechecker.jda;
 
 import me.koutachan.rolechecker.RoleChecker;
+import me.koutachan.rolechecker.api.event.EventListener;
 import me.koutachan.rolechecker.util.SQLUtil;
 import me.koutachan.rolechecker.util.UUIDUtil;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -25,7 +26,10 @@ public class RemoveCommand extends ListenerAdapter {
                             .setDescription("ユーザー名を入力してください")
                             .addField("使い方:", RoleChecker.prefix + "remove ${マインクラフトID}", true)
                             .setTimestamp(event.getMessage().getTimeCreated());
-                    event.getMessage().reply(embedBuilder.build()).queue();
+                    EventListener.Event eventListener = new EventListener.Event(null, event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.REMOVE);
+
+                    EventListener.observers.forEach(observers -> observers.Event(eventListener));
+                    event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                 } else {
                     UUID uuid;
                     try {
@@ -37,7 +41,10 @@ public class RemoveCommand extends ListenerAdapter {
                                 .setDescription("問題があると思う場合は管理者に報告してください")
                                 .addField("エラー概要:", "無効なユーザー名か他の重大なエラーが発生したようです", false)
                                 .setTimestamp(event.getMessage().getTimeCreated());
-                        event.getMessage().reply(embedBuilder.build()).queue();
+                        EventListener.Event eventListener = new EventListener.Event(null, event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.REMOVE);
+
+                        EventListener.observers.forEach(observers -> observers.Event(eventListener));
+                        event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                         return;
                     }
 
@@ -50,7 +57,10 @@ public class RemoveCommand extends ListenerAdapter {
                                 .setTitle("削除完了")
                                 .setDescription("問題があると思う場合は管理者に報告してください")
                                 .setTimestamp(event.getMessage().getTimeCreated());
-                        event.getMessage().reply(embedBuilder.build()).queue();
+                        EventListener.Event eventListener = new EventListener.Event(null, event.getAuthor().getId(),embedBuilder,true, EventListener.reasonEnum.REMOVE);
+
+                        EventListener.observers.forEach(observers -> observers.Event(eventListener));
+                        event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                     } else {
                         EmbedBuilder embedBuilder = new EmbedBuilder()
                                 .setColor(Color.RED)
@@ -58,7 +68,11 @@ public class RemoveCommand extends ListenerAdapter {
                                 .setDescription("問題があると思う場合は管理者に報告してください")
                                 .addField("エラー概要:", "本当にこのユーザー名の所持者ですか？", false)
                                 .setTimestamp(event.getMessage().getTimeCreated());
-                        event.getMessage().reply(embedBuilder.build()).queue();
+
+                        EventListener.Event eventListener = new EventListener.Event(uuid.toString(), event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.REMOVE);
+
+                        EventListener.observers.forEach(observers -> observers.Event(eventListener));
+                        event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                     }
                 }
             }

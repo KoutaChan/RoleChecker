@@ -1,5 +1,7 @@
 package me.koutachan.rolechecker;
 
+import me.koutachan.rolechecker.api.event.EventListener;
+import me.koutachan.rolechecker.api.event.testAPI;
 import me.koutachan.rolechecker.commands.JoinModeCommand;
 import me.koutachan.rolechecker.commands.RemoveDataBase;
 import me.koutachan.rolechecker.jda.*;
