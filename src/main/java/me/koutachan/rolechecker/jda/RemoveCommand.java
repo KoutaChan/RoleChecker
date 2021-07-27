@@ -55,7 +55,7 @@ public class RemoveCommand extends ListenerAdapter {
                                 .setTitle("削除完了")
                                 .setDescription("問題があると思う場合は管理者に報告してください")
                                 .setTimestamp(event.getMessage().getTimeCreated());
-                        EventListener.Event eventListener = new EventListener().request(null, event.getAuthor().getId(), embedBuilder, true, EventListener.reasonEnum.REMOVE);
+                        EventListener.Event eventListener = new EventListener().request(uuid.toString(), event.getAuthor().getId(), embedBuilder, true, EventListener.reasonEnum.REMOVE);
 
                         event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                     } else {
