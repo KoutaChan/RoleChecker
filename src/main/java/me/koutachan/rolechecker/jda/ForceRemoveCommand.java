@@ -28,9 +28,8 @@ public class ForceRemoveCommand extends ListenerAdapter {
                                 .addField("使い方:", RoleChecker.prefix + "forceremove ${マインクラフトID}", true)
                                 .setColor(Color.RED)
                                 .setTimestamp(event.getMessage().getTimeCreated());
-                        EventListener.Event eventListener = new EventListener.Event(null, event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.FORCEREMOVE);
+                        EventListener.Event eventListener = new EventListener().request(null, event.getAuthor().getId(), embedBuilder, false, EventListener.reasonEnum.FORCEREMOVE);
 
-                        EventListener.observers.forEach(observers -> observers.Event(eventListener));
                         event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                         event.getMessage().reply(embedBuilder.build()).queue();
                     } else {
@@ -44,9 +43,8 @@ public class ForceRemoveCommand extends ListenerAdapter {
                                     .setDescription("問題があると思う場合は管理者に報告してください")
                                     .addField("エラー概要:", "無効なユーザー名か他の重大なエラーが発生したようです", false)
                                     .setTimestamp(event.getMessage().getTimeCreated());
-                            EventListener.Event eventListener = new EventListener.Event(null, event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.FORCEREMOVE);
+                            EventListener.Event eventListener = new EventListener().request(null, event.getAuthor().getId(), embedBuilder, false, EventListener.reasonEnum.FORCEREMOVE);
 
-                            EventListener.observers.forEach(observers -> observers.Event(eventListener));
                             event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                             return;
                         }
@@ -59,9 +57,8 @@ public class ForceRemoveCommand extends ListenerAdapter {
                                     .addField("デバッグ情報(UUID):", result[0], false)
                                     .addField("所持していたID(DiscordID):", result[1], false)
                                     .setTimestamp(event.getMessage().getTimeCreated());
-                            EventListener.Event eventListener = new EventListener.Event(uuid.toString(), event.getAuthor().getId(),embedBuilder,true, EventListener.reasonEnum.FORCEREMOVE);
+                            EventListener.Event eventListener = new EventListener().request(uuid.toString(), event.getAuthor().getId(), embedBuilder, true, EventListener.reasonEnum.FORCEREMOVE);
 
-                            EventListener.observers.forEach(observers -> observers.Event(eventListener));
                             event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                         } else {
                             EmbedBuilder embedBuilder = new EmbedBuilder()
@@ -69,22 +66,20 @@ public class ForceRemoveCommand extends ListenerAdapter {
                                     .setTitle("削除失敗")
                                     .addField("エラー概要:", "このユーザー名は登録されていません", false)
                                     .setTimestamp(event.getMessage().getTimeCreated());
-                            EventListener.Event eventListener = new EventListener.Event(uuid.toString(), event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.FORCEREMOVE);
+                            EventListener.Event eventListener = new EventListener().request(uuid.toString(), event.getAuthor().getId(), embedBuilder, false, EventListener.reasonEnum.FORCEREMOVE);
 
-                            EventListener.observers.forEach(observers -> observers.Event(eventListener));
                             event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                         }
                     }
                 }
-            }else {
+            } else {
                 EmbedBuilder embedBuilder = new EmbedBuilder()
                         .setColor(Color.RED)
                         .setTitle("権限がないようです！")
                         .addField("エラー概要:", "あなたは`ADMINISTRATOR`権限がありません", false)
                         .setTimestamp(event.getMessage().getTimeCreated());
-                EventListener.Event eventListener = new EventListener.Event(null, event.getAuthor().getId(),embedBuilder,false, EventListener.reasonEnum.FORCEREMOVE);
+                EventListener.Event eventListener = new EventListener().request(null, event.getAuthor().getId(), embedBuilder, false, EventListener.reasonEnum.FORCEREMOVE);
 
-                EventListener.observers.forEach(observers -> observers.Event(eventListener));
                 event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
             }
         }

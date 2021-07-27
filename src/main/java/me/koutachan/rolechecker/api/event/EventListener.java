@@ -15,7 +15,7 @@ public class EventListener {
         void Event(Event event);
     }
 
-    public static final List<Listener> observers = new ArrayList<>();
+    private static final List<Listener> observers = new ArrayList<>();
 
     public static class Event {
         private final String name;
@@ -23,7 +23,8 @@ public class EventListener {
         private EmbedBuilder embedBuilder;
         private final boolean isSuccess;
         private final reasonEnum reasonEnum;
-        public Event(String name, String discordID, EmbedBuilder embedBuilder,boolean isSuccess,reasonEnum reasonEnum){
+
+        public Event(String name, String discordID, EmbedBuilder embedBuilder, boolean isSuccess, reasonEnum reasonEnum) {
             this.name = name;
             this.discordID = discordID;
             this.embedBuilder = embedBuilder;
@@ -31,31 +32,32 @@ public class EventListener {
             this.reasonEnum = reasonEnum;
         }
 
-        public String getName(){
+        public String getName() {
             return this.name;
         }
 
-        public String getDiscordID(){
+        public String getDiscordID() {
             return this.discordID;
         }
 
-        public EmbedBuilder getEmbedBuilder(){
+        public EmbedBuilder getEmbedBuilder() {
             return this.embedBuilder;
         }
 
-        public void setEmbedBuilder(EmbedBuilder embedBuilder){
+        public void setEmbedBuilder(EmbedBuilder embedBuilder) {
             this.embedBuilder = embedBuilder;
         }
 
         public boolean isSuccess() {
-            return isSuccess;
+            return this.isSuccess;
         }
 
         public reasonEnum getReason() {
             return this.reasonEnum;
         }
     }
-    public enum reasonEnum{
+
+    public enum reasonEnum {
         JOIN,
         REMOVE,
         FORCEJOIN,
@@ -64,5 +66,11 @@ public class EventListener {
 
     public void addListener(Listener listener) {
         observers.add(listener);
+    }
+
+    public Event request(String name, String discordID, EmbedBuilder embedBuilder, boolean isSuccess, reasonEnum reasonEnum) {
+        Event event = new Event(name, discordID, embedBuilder, isSuccess, reasonEnum);
+        EventListener.observers.forEach(observers -> observers.Event(event));
+        return event;
     }
 }

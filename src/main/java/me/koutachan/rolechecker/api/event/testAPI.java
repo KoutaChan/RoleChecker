@@ -7,7 +7,6 @@ package me.koutachan.rolechecker.api.event;
 /*
  event listener:
  new EventListener().addListener(new testAPI());
- EventListener.observers.add(new testAPI());
  */
 public class testAPI implements EventListener.Listener {
 
