@@ -20,7 +20,7 @@ Discordユーザーの役職を取得してマインクラフトのプレイヤ�
 
 3. マインクラフトのプラグインフォルダに`RoleChecker-1.4.jar`を入れるだけ
 
-## コマンド
+## Discordコマンド
 
 `!help` ヘルプを表示します
 
@@ -30,9 +30,19 @@ Discordユーザーの役職を取得してマインクラフトのプレイヤ�
 
 `!remove {MCID}` ユーザーをデータベースから削除させます
 
-`!forcejoin {MCID} {DiscordID}` ユーザーを強制的にデータベースに登録させます
+`!forcejoin {MCID} {DiscordID}` [Adminパーミッションが必要] ユーザーを強制的にデータベースに登録させます
 
-`!forceremove {MCID} {DiscordID}` ユーザーを強制的にデータベースから削除させます
+`!forceremove {MCID} {DiscordID}` [Adminパーミッションが必要] ユーザーを強制的にデータベースから削除させます
+
+## Minecraftコマンド
+
+`/joinmode {boolean}` 参加可能か変更
+
+`/removedatabase` データベースを再生成します
+
+## バンジーコードの場合
+
+UUIDの発行がバグっている場合があります、ご了承ください(ご自身で設定して修正してください)
 
 ## Licence
 
