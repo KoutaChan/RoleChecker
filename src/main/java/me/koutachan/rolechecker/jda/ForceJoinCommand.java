@@ -18,9 +18,9 @@ public class ForceJoinCommand extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (!event.getAuthor().isBot() && event.isFromType(ChannelType.TEXT)) {
-            if (event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
-                String[] args = event.getMessage().getContentRaw().split("\\s+");
-                if (args[0].equalsIgnoreCase(RoleChecker.prefix + "forcejoin")) {
+            String[] args = event.getMessage().getContentRaw().split("\\s+");
+            if (args[0].equalsIgnoreCase(RoleChecker.prefix + "forcejoin")) {
+                if (event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
                     if (args.length != 3) {
                         EmbedBuilder embedBuilder = new EmbedBuilder()
                                 .setTitle("エラー！")
@@ -72,16 +72,16 @@ public class ForceJoinCommand extends ListenerAdapter {
                             event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
                         }
                     }
-                }
-            } else {
-                EmbedBuilder embedBuilder = new EmbedBuilder()
-                        .setColor(Color.RED)
-                        .setTitle("権限がないようです！")
-                        .addField("エラー概要:", "あなたは`ADMINISTRATOR`権限がありません", false)
-                        .setTimestamp(event.getMessage().getTimeCreated());
-                EventListener.Event eventListener = new EventListener.Event(null, event.getAuthor().getId(), embedBuilder, false, EventListener.reasonEnum.FORCEJOIN);
+                } else {
+                    EmbedBuilder embedBuilder = new EmbedBuilder()
+                            .setColor(Color.RED)
+                            .setTitle("権限がないようです！")
+                            .addField("エラー概要:", "あなたは`ADMINISTRATOR`権限がありません", false)
+                            .setTimestamp(event.getMessage().getTimeCreated());
+                    EventListener.Event eventListener = new EventListener.Event(null, event.getAuthor().getId(), embedBuilder, false, EventListener.reasonEnum.FORCEJOIN);
 
-                event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
+                    event.getMessage().reply(eventListener.getEmbedBuilder().build()).queue();
+                }
             }
         }
     }
