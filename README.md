@@ -40,6 +40,10 @@ Discordユーザーの役職を取得してマインクラフトのプレイヤ�
 
 `/removedatabase` データベースを再生成します
 
+## バンジーコードの場合は
+
+UUIDの発行がバグっている場合があります、ご了承ください(ご自身で設定して修正してください)
+
 ## Licence
 
 [MIT License](https://github.com/KoutaChan/RoleChecker/blob/main/LICENSE)
