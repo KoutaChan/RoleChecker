@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class CheckCommand extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (!event.getAuthor().isBot() && event.isFromType(ChannelType.TEXT)) {
+        if (!event.getAuthor().isBot() && event.isFromType(ChannelType.TEXT) && new Check().AllowedChecker(event.getTextChannel().getId())) {
             String[] args = event.getMessage().getContentRaw().split("\\s+");
             if(args[0].equalsIgnoreCase(RoleChecker.prefix +  "check")){
                 if (args.length != 2) {

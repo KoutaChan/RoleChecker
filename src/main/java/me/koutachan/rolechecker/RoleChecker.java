@@ -5,6 +5,7 @@ import me.koutachan.rolechecker.api.event.testAPI;
 import me.koutachan.rolechecker.commands.JoinModeCommand;
 import me.koutachan.rolechecker.commands.RemoveDataBase;
 import me.koutachan.rolechecker.jda.*;
+import me.koutachan.rolechecker.util.Check;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -30,6 +31,7 @@ public final class RoleChecker extends JavaPlugin {
         try {
             plugin = this;
             saveDefaultConfig();
+            Check.allowedChannel = getConfig().getString("allowedchannel");
             prefix = getConfig().getString("prefix");
             getCommand("joinmode").setExecutor(new JoinModeCommand());
             getCommand("removedatabase").setExecutor(new RemoveDataBase());

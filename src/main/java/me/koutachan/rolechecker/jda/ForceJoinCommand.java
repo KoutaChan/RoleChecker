@@ -2,6 +2,7 @@ package me.koutachan.rolechecker.jda;
 
 import me.koutachan.rolechecker.RoleChecker;
 import me.koutachan.rolechecker.api.event.EventListener;
+import me.koutachan.rolechecker.util.Check;
 import me.koutachan.rolechecker.util.SQLUtil;
 import me.koutachan.rolechecker.util.UUIDUtil;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class ForceJoinCommand extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (!event.getAuthor().isBot() && event.isFromType(ChannelType.TEXT)) {
+        if (!event.getAuthor().isBot() && event.isFromType(ChannelType.TEXT) && new Check().AllowedChecker(event.getTextChannel().getId())) {
             String[] args = event.getMessage().getContentRaw().split("\\s+");
             if (args[0].equalsIgnoreCase(RoleChecker.prefix + "forcejoin")) {
                 if (event.getMember().hasPermission(Permission.ADMINISTRATOR)) {

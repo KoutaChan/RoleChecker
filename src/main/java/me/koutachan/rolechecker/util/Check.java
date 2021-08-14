@@ -2,12 +2,14 @@ package me.koutachan.rolechecker.util;
 
 import me.koutachan.rolechecker.RoleChecker;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Role;
 /*/
  * さすがに汚い？(再コード予定)
  */
 
 public class Check {
+
+    public static String allowedChannel;
+
     public boolean Checker(String uuid,String discordID){
         String[] result = new SQLUtil().request(uuid, discordID);
         try {
@@ -21,5 +23,13 @@ public class Check {
         }catch (Exception ignored){
         }
     return false;
+    }
+
+    public boolean AllowedChecker(String channleId){
+        if(allowedChannel == null){
+            return true;
+        }else{
+            return allowedChannel.equals(channleId);
+        }
     }
 }

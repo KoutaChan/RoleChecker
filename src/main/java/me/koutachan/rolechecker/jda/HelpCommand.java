@@ -1,6 +1,7 @@
 package me.koutachan.rolechecker.jda;
 
 import me.koutachan.rolechecker.RoleChecker;
+import me.koutachan.rolechecker.util.Check;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -9,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class HelpCommand extends ListenerAdapter {
 
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (!event.getAuthor().isBot() && event.isFromType(ChannelType.TEXT)) {
+        if (!event.getAuthor().isBot() && event.isFromType(ChannelType.TEXT) && new Check().AllowedChecker(event.getTextChannel().getId())) {
             String[] args = event.getMessage().getContentRaw().split("\\s+");
             if (args[0].equalsIgnoreCase(RoleChecker.prefix + "help")) {
                 event.getTextChannel().sendMessage("コマンド:"

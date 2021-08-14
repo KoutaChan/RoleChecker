@@ -12,6 +12,8 @@ activity: ハロー
 disablebotcommand: false
 #サーバーID(なくてもいいですが非効率になる可能性があります)
 serverid:
+#許可されているチャンネル(空欄の場合すべてのチャンネル)
+allowedchannel:
 #許可されているロールID
 role:
   - null1
