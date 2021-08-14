@@ -1,4 +1,4 @@
-# RoleChecker (現在のバージョンは1.2です)
+# RoleChecker (現在のバージョンは1.3です)
 
 **設定ファイルを見る:** [config.yml](https://github.com/KoutaChan/RoleChecker/blob/main/src/main/resources/config.yml)
 
@@ -16,9 +16,9 @@ Discordユーザーの役職を取得してマインクラフトのプレイヤ�
 
 わからない場合は [Discord botユーザを作成し、トークンを取得する手順](https://cod-sushi.com/discord-py-token/) を参照してください
 
-2. [最新バージョンをダウンロード](https://github.com/KoutaChan/RoleChecker/releases/download/1.2/RoleChecker-1.2.jar) からダウンロードします
+2. [最新バージョンをダウンロード](https://github.com/KoutaChan/RoleChecker/releases/download/HotFix-1.3/RoleChecker-1.3.jar) からダウンロードします
 
-3. マインクラフトのプラグインフォルダに`RoleChecker-1.2.jar`を入れるだけ
+3. マインクラフトのプラグインフォルダに`RoleChecker-1.3.jar`を入れるだけ
 
 ## Discordコマンド
 
