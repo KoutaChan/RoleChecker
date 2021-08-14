@@ -9,12 +9,7 @@ import net.dv8tion.jda.api.entities.Role;
 
 public class Check {
     public boolean Checker(String uuid,String discordID){
-        String[] result;
-        if(discordID != null){
-            result = new SQLUtil().request(uuid, discordID);
-        }else {
-            result = new SQLUtil().request(uuid, null);
-        }
+        String[] result = new SQLUtil().request(uuid, discordID);
         try {
             if (result != null) {
                 if (RoleChecker.plugin.getConfig().getString("serverid") != null) {
