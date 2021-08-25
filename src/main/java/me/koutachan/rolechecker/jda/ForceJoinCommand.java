@@ -54,7 +54,7 @@ public class ForceJoinCommand extends ListenerAdapter {
                             EmbedBuilder embedBuilder = new EmbedBuilder()
                                     .setColor(Color.GREEN)
                                     .setTitle("強制登録完了")
-                                    .addField("マインクラフトUUID:", args[1], false)
+                                    .addField("マインクラフトUUID:", uuid.toString(), false)
                                     .addField("DiscordID:", args[2], false)
                                     .setTimestamp(event.getMessage().getTimeCreated());
                             EventListener.Event eventListener = new EventListener().request(uuid.toString(), event.getAuthor().getId(), embedBuilder, true, EventListener.reasonEnum.FORCEJOIN);

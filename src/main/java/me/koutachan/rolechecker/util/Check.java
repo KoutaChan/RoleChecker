@@ -25,11 +25,8 @@ public class Check {
     return false;
     }
 
-    public boolean AllowedChecker(String channleId){
-        if(allowedChannel == null){
-            return true;
-        }else{
-            return allowedChannel.equals(channleId);
-        }
+    public boolean AllowedChecker(String allowedChannelId){
+        if(allowedChannel == null) return true;
+        return allowedChannel.equals(allowedChannelId);
     }
 }
