@@ -1,3 +1,7 @@
+## Project is discontinued 
+
+**new version:** ***https://github.com/SIGMA-L/PlayerRoleChecker***
+
 # RoleChecker (現在のバージョンは1.4です)
 
 **設定ファイルを見る:** [config.yml](https://github.com/KoutaChan/RoleChecker/blob/main/src/main/resources/config.yml)
